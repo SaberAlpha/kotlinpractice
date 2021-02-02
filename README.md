@@ -32,3 +32,24 @@
      return Gson().toJson(this)
  }
 ```
+
+三. 优化 App 搜索功能
+```
+      private fun searchFilter(str:String){
+          flow { emit(str) }
+              .debounce(400)
+              .filter {
+                  it.isNotEmpty()
+              }
+              .distinctUntilChanged()
+              .flatMapLatest {
+                  getFlowList(it)
+              }
+              .catch { print(it.message) }
+              .flowOn(Dispatchers.Default)
+              .onEach {
+                  print(it.toString())
+              }.flowOn(Dispatchers.Main)
+              .launchIn(lifecycleScope)
+      }
+```

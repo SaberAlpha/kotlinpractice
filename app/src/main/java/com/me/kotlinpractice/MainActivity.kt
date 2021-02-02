@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.tvCount.setOnClickListener {
-            startActivity(Intent(this,SecondActivity::class.java))
+            startActivity(Intent(this,SearchActivity::class.java))
             finish()
         }
         binding.btnFinish.setOnClickListener {
