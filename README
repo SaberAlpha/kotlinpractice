@@ -1,7 +1,7 @@
 # kotlinPractice
 ## Kotlin Flow 应用技巧实践
 一. 倒计时
-```kotlin
+```
  fun countDownCoroutines(total:Int,onTick:(Int)->Unit,onFinish:()->Unit,
                         scope: CoroutineScope = GlobalScope):Job{
     return flow{
@@ -18,7 +18,7 @@
 ```
 
 二. Gson拓展
-```kotlin
+```
  inline fun <reified T> fromJson(json: String): T? {
      return try {
          val type = object : TypeToken<T>() {}.type
