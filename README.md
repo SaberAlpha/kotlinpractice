@@ -53,3 +53,21 @@
               .launchIn(lifecycleScope)
       }
 ```
+
+四. 防抖动处理
+```
+ inline fun View.setThrottleListener(delayMillis: Long = 1000L,crossinline onClick: () -> Unit) {
+     this.setOnClickListener {
+         this.isClickable = false
+         onClick()
+         this.postDelayed({
+             this.isClickable = true
+         }, delayMillis)
+     }
+ }
+```
+
+### 未完待续
+### 支持一下
+
+如果本项目对你有帮助，请点击右上角的 **start** 支持一下

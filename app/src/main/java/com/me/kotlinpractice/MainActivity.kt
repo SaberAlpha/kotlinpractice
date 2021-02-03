@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.LogUtils
 import com.me.kotlinpractice.databinding.ActivityMainBinding
 import com.me.library.ext.countDownCoroutines
+import com.me.library.ext.setThrottleListener
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.onCompletion
@@ -25,16 +26,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.tvCount.setOnClickListener {
+        binding.tvCount.setThrottleListener {
             startActivity(Intent(this,SearchActivity::class.java))
             finish()
         }
-        binding.btnFinish.setOnClickListener {
+        binding.btnFinish.setThrottleListener {
             LogUtils.d("倒计时:开始>>>> ")
             if (job != null){
                 job?.cancel()
                 job = null
-                return@setOnClickListener
+                return@setThrottleListener
             }
             job = countDownCoroutines(5,{
                 binding.tvCount.text = "倒计时:${it}s"
