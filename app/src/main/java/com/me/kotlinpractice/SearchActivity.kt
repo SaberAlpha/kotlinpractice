@@ -17,19 +17,23 @@ class SearchActivity : AppCompatActivity() {
         ActivitySearchBinding.inflate(layoutInflater)
     }
 
+    private val stateFlow = MutableStateFlow("")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        searchFilter()
         binding.etSearch.doOnTextChanged { text, start, before, count ->
-            searchFilter(text.toString())
+            stateFlow.value = text.toString()
         }
+
     }
 
     /**
      * 优化 App 搜索功能
      */
-    private fun searchFilter(str:String){
-        flow { emit(str) }
+    private fun searchFilter(){
+        stateFlow
             .debounce(400)
             .filter {
                 it.isNotEmpty()
@@ -56,12 +60,12 @@ class SearchActivity : AppCompatActivity() {
      * 模拟请求
      */
     suspend fun getList(str: String):List<String>{
-        delay(1000)
+//        delay(1000)
         return listOf<String>("$str 01","$str 02","$str 03")
     }
 
     suspend fun getFlowList(str: String):Flow<List<String>>{
-        delay(1000)
+//        delay(1000)
         return flow { emit(listOf<String>("$str 01","$str 02","$str 03")) }
     }
 

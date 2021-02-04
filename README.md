@@ -35,8 +35,9 @@
 
 三. 优化 App 搜索功能
 ```
+      private val stateFlow = MutableStateFlow("")
       private fun searchFilter(str:String){
-          flow { emit(str) }
+          stateFlow
               .debounce(400)
               .filter {
                   it.isNotEmpty()
